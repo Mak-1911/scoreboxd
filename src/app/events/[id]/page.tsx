@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import ReviewCard from "@/components/ReviewCard";
 import ReviewForm from "@/components/ReviewForm";
+import Scorecard from "@/components/Scorecard";
 
 async function getEvent(id: string) {
   try {
@@ -45,6 +46,41 @@ async function getEventReviews(eventId: string) {
   }
 }
 
+async function getEventScorecard(eventId: string) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/scorecards?eventId=${eventId}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const scorecards = await res.json();
+    if (scorecards.length === 0) return null;
+
+    // Fetch full scorecard with player stats
+    const fullRes = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/scorecards/${scorecards[0].id}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!fullRes.ok) {
+      return null;
+    }
+
+    return fullRes.json();
+  } catch (error) {
+    console.error("Error fetching scorecard:", error);
+    return null;
+  }
+}
+
 export default async function EventDetailPage({
   params,
 }: {
@@ -57,6 +93,7 @@ export default async function EventDetailPage({
   }
 
   const reviews = await getEventReviews(params.id);
+  const scorecard = await getEventScorecard(params.id);
   const eventDate = new Date(event.date);
   const isUpcoming = eventDate > new Date();
 
@@ -179,6 +216,17 @@ export default async function EventDetailPage({
                   {event.description}
                 </p>
               </div>
+            )}
+
+            {/* Scorecard Section */}
+            {scorecard && (
+              <>
+                <Separator />
+                <div>
+                  <h2 className="text-2xl font-semibold mb-6">Match Scorecard</h2>
+                  <Scorecard scorecard={scorecard} />
+                </div>
+              </>
             )}
 
             <Separator />

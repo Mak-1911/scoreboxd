@@ -68,6 +68,25 @@ export const likes = sqliteTable('likes', {
   createdAt: text('created_at').notNull(),
 });
 
+export const scorecards = sqliteTable('scorecards', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  eventId: integer('event_id').notNull().references(() => events.id),
+  sport: text('sport').notNull(),
+  finalScore: text('final_score').notNull(),
+  additionalData: text('additional_data', { mode: 'json' }),
+  createdAt: text('created_at').notNull(),
+});
+
+export const playerStats = sqliteTable('player_stats', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  scorecardId: integer('scorecard_id').notNull().references(() => scorecards.id),
+  playerName: text('player_name').notNull(),
+  teamName: text('team_name'),
+  position: integer('position'),
+  stats: text('stats', { mode: 'json' }).notNull(),
+  createdAt: text('created_at').notNull(),
+});
+
 
 // Auth tables for better-auth
 export const user = sqliteTable("user", {

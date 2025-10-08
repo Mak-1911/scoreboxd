@@ -51,24 +51,24 @@
 
 :root {
   --radius: 0.75rem;
-  --background: #0A1E2B;
-  --foreground: #F0F4F8;
-  --card: #0F2838;
-  --card-foreground: #F0F4F8;
-  --popover: #0F2838;
-  --popover-foreground: #F0F4F8;
-  --primary: #3498DB;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1A3A4F;
-  --secondary-foreground: #F0F4F8;
-  --muted: #1A3A4F;
-  --muted-foreground: #8B9DAF;
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --card: #0a0a0a;
+  --card-foreground: #FFFFFF;
+  --popover: #0a0a0a;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFFFFF;
+  --primary-foreground: #000000;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1a1a1a;
+  --muted-foreground: #737373;
   --accent: #2ECC71;
   --accent-foreground: #FFFFFF;
   --destructive: #E74C3C;
-  --border: #1A3A4F;
-  --input: #1A3A4F;
-  --ring: #3498DB;
+  --border: #262626;
+  --input: #1a1a1a;
+  --ring: #404040;
   --orange: #FF6B35;
   --green: #2ECC71;
   --blue: #3498DB;
@@ -77,14 +77,14 @@
   --chart-3: #3498DB;
   --chart-4: #9B59B6;
   --chart-5: #F39C12;
-  --sidebar: #0A1E2B;
-  --sidebar-foreground: #F0F4F8;
-  --sidebar-primary: #3498DB;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1A3A4F;
-  --sidebar-accent-foreground: #F0F4F8;
-  --sidebar-border: #1A3A4F;
-  --sidebar-ring: #3498DB;
+  --sidebar: #000000;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #262626;
+  --sidebar-ring: #404040;
 }
 
 @layer base {
@@ -111,17 +111,17 @@
         0deg,
         transparent,
         transparent 2px,
-        rgba(255, 255, 255, 0.03) 2px,
-        rgba(255, 255, 255, 0.03) 4px
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
       ),
       repeating-linear-gradient(
         90deg,
         transparent,
         transparent 2px,
-        rgba(255, 255, 255, 0.03) 2px,
-        rgba(255, 255, 255, 0.03) 4px
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
       );
-    opacity: 0.4;
+    opacity: 0.5;
   }
   
   body::after {
@@ -134,7 +134,7 @@
     pointer-events: none;
     z-index: 9999;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.08;
+    opacity: 0.06;
     mix-blend-mode: overlay;
   }
   
