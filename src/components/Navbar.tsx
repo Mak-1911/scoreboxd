@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,13 +14,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, User as UserIcon } from "lucide-react";
+import { Search, User as UserIcon, Moon, Sun } from "lucide-react";
 import { useSession, authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 
 export default function Navbar() {
   const { data: session, refetch } = useSession();
   const router = useRouter();
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   const handleSignOut = async () => {
     const token = localStorage.getItem("bearer_token");
@@ -81,10 +105,23 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Right Side - Search and User */}
+          {/* Right Side - Search, Theme Toggle and User */}
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-transparent">
               <Search className="w-5 h-5" />
+            </Button>
+
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleTheme}
+              className="text-muted-foreground hover:text-foreground hover:bg-transparent"
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )}
             </Button>
 
             {session?.user ? (
