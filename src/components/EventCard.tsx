@@ -29,6 +29,8 @@ const sportImages: Record<string, string> = {
   Baseball: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/da26eebf-2b36-44a6-ba7b-cdfa1fcb3869/generated_images/baseball-home-run-celebration-at-night-g-90b12a03-20251005162209.jpg",
   Hockey: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/da26eebf-2b36-44a6-ba7b-cdfa1fcb3869/generated_images/ice-hockey-action-shot-with-player-scori-ca69198d-20251005162220.jpg",
   Tennis: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/da26eebf-2b36-44a6-ba7b-cdfa1fcb3869/generated_images/tennis-championship-match-point-celebrat-80e43cb9-20251005162230.jpg",
+  Cricket: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/da26eebf-2b36-44a6-ba7b-cdfa1fcb3869/generated_images/cricket-match-action-shot-with-batsman-h-fcc96b37-20251008062219.jpg",
+  F1: "https://v3b.fal.media/files/b/elephant/vcge_23vdWBJhjMXZBMDy_output.png",
 };
 
 export default function EventCard({ event }: EventCardProps) {

@@ -77,7 +77,7 @@ export default function DiscoverPage() {
     }
   };
 
-  const sports = ["all", "Basketball", "Football", "Soccer", "Baseball", "Hockey", "Tennis"];
+  const sports = ["all", "Basketball", "Football", "Soccer", "Baseball", "Hockey", "Tennis", "Cricket", "F1"];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
