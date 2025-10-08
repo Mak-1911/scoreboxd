@@ -6,8 +6,11 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "SportLog - Track Your Favorite Sports Events",
+  title: "scoreboxd - Track Your Favorite Sports Events",
   description: "A social platform for sports fans to track, review, and discuss their favorite games and events",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

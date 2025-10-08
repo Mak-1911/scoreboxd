@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -12,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Trophy, LogOut, User, Search, Home, List, Sparkles } from "lucide-react";
+import { Search, User as UserIcon } from "lucide-react";
 import { useSession, authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -43,97 +44,87 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 shadow-sm">
+    <nav className="border-b border-border/50 bg-background/95 backdrop-blur-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 font-bold text-xl group">
-            <div className="relative p-2.5 bg-gradient-to-br from-primary to-primary/70 rounded-xl shadow-lg group-hover:shadow-xl transition-all group-hover:scale-105">
-              <Trophy className="w-6 h-6 text-primary-foreground" />
-              <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10 transition-transform group-hover:scale-105">
+              <svg width="40" height="40" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="60" height="60" rx="12" stroke="currentColor" strokeWidth="4" className="text-foreground"/>
+                <rect x="14" y="18" width="10" height="28" rx="2" fill="#FF6B35"/>
+                <rect x="27" y="18" width="10" height="28" rx="2" fill="#2ECC71"/>
+                <rect x="40" y="18" width="10" height="28" rx="2" fill="#3498DB"/>
+              </svg>
             </div>
-            <span className="hidden sm:inline font-display text-2xl tracking-wider bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              SPORTLOG
+            <span className="text-xl font-normal tracking-tight text-foreground group-hover:text-foreground/80 transition-colors">
+              scoreboxd
             </span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" asChild className="gap-2 hover:bg-primary/10 transition-colors">
-              <Link href="/">
-                <Home className="w-5 h-5" />
-                <span className="hidden sm:inline font-semibold">Home</span>
-              </Link>
+          {/* Center Navigation */}
+          <div className="hidden md:flex items-center gap-1">
+            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent font-normal">
+              <Link href="/">Home</Link>
             </Button>
-            <Button variant="ghost" asChild className="gap-2 hover:bg-primary/10 transition-colors">
-              <Link href="/discover">
-                <Search className="w-5 h-5" />
-                <span className="hidden sm:inline font-semibold">Discover</span>
-              </Link>
+            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent font-normal">
+              <Link href="/discover">Explore</Link>
             </Button>
-            <Button variant="ghost" asChild className="gap-2 hover:bg-primary/10 transition-colors">
-              <Link href="/lists">
-                <List className="w-5 h-5" />
-                <span className="hidden sm:inline font-semibold">Lists</span>
-              </Link>
+            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent font-normal">
+              <Link href="/lists">Lists</Link>
+            </Button>
+            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent font-normal">
+              <Link href="/profile">Journal</Link>
+            </Button>
+            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent font-normal">
+              <Link href="/members">Members</Link>
             </Button>
           </div>
 
-          {/* User Menu */}
+          {/* Right Side - Search and User */}
           <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-transparent">
+              <Search className="w-5 h-5" />
+            </Button>
+
             {session?.user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-12 w-12 rounded-full ring-2 ring-primary/20 hover:ring-primary/40 transition-all">
-                    <Avatar className="h-11 w-11">
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-transparent">
+                    <Avatar className="h-8 w-8">
                       <AvatarImage src={session.user.image || undefined} alt={session.user.name} />
-                      <AvatarFallback className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground font-bold">
+                      <AvatarFallback className="bg-muted text-foreground text-xs">
                         {session.user.name?.charAt(0).toUpperCase() || "U"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 p-2">
-                  <DropdownMenuLabel className="p-3">
-                    <div className="flex flex-col space-y-1.5">
-                      <p className="text-base font-bold leading-none">{session.user.name}</p>
-                      <p className="text-xs leading-none text-muted-foreground font-medium">
-                        {session.user.email}
-                      </p>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium">{session.user.name}</p>
+                      <p className="text-xs text-muted-foreground">{session.user.email}</p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild className="cursor-pointer p-3">
-                    <Link href="/profile" className="flex items-center">
-                      <User className="w-4 h-4 mr-3" />
-                      <span className="font-medium">Profile</span>
-                    </Link>
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile">Profile</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="cursor-pointer p-3">
-                    <Link href="/my-lists" className="flex items-center">
-                      <List className="w-4 h-4 mr-3" />
-                      <span className="font-medium">My Lists</span>
-                    </Link>
+                  <DropdownMenuItem asChild>
+                    <Link href="/lists">My Lists</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive p-3 font-medium">
-                    <LogOut className="w-4 h-4 mr-3" />
+                  <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
                     Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <>
-                <Button variant="ghost" asChild className="font-semibold">
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
-                <Button asChild className="shadow-lg font-semibold">
-                  <Link href="/sign-up">
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Sign Up
-                  </Link>
-                </Button>
-              </>
+              <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-foreground hover:bg-transparent">
+                <Link href="/sign-in">
+                  <UserIcon className="w-5 h-5" />
+                </Link>
+              </Button>
             )}
           </div>
         </div>
