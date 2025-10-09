@@ -89,58 +89,58 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue/5 via-transparent to-green/5" />
         
-        <div className="container relative mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue/10 text-blue border border-blue/20">
-              <Sparkles className="w-4 h-4" />
-              <span className="text-sm font-medium tracking-wide">Your Ultimate Sports Companion</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              Track, Review, and Share Your
-              <span className="block mt-2 bg-gradient-to-r from-orange via-green to-blue bg-clip-text text-transparent">
-                SPORTS MOMENTS
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              The social network for sports fans. Log the games you watch, rate and review events, 
-              and connect with fellow enthusiasts worldwide.
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4 pt-6">
-              <Button size="lg" asChild className="text-lg px-8 py-6 bg-blue hover:bg-blue/90">
-                <Link href="/sign-up">
-                  <Sparkles className="w-5 h-5 mr-2" />
-                  Get Started Free
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="text-lg px-8 py-6 border-2">
-                <Link href="/discover">
-                  Discover Events
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-16 max-w-2xl mx-auto">
-              <div className="text-center p-6 rounded-xl bg-card/50 border border-border/50">
-                <div className="text-4xl font-bold text-orange">{events.length}+</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Events</div>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-card/50 border border-border/50">
-                <div className="text-4xl font-bold text-green">15+</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Reviews</div>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-card/50 border border-border/50">
-                <div className="text-4xl font-bold text-blue">5</div>
-                <div className="text-sm font-medium text-muted-foreground mt-1">Sports Fans</div>
+        <div className="container relative mx-auto px-0">
+          <div className="w-5/5 h-full mx-auto relative overflow-hidden ">
+            <img 
+              src="/hero_bg.png" 
+              alt="Hero Background" 
+              className="w-full h-full object-cover opacity-50"
+            />
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{ 
+                background: "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.5) 100%)"
+              }}
+            ></div>
+            <div className="absolute top-0 left-0 pt-8 pl-8">
+              <div className="flex flex-col space-y-2 animate-fade-in-up"
+                style={{ 
+                  transform: "perspective(500px) rotateX(2deg)",
+                  transformStyle: "preserve-3d"
+                }}>
+                <h1 className="text-5xl md:text-7xl font-bold text-white drop-shadow-2xl uppercase tracking-wide"
+                  style={{ 
+                    textShadow: "0 4px 8px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)"
+                  }}>
+                  SCOREBOXD
+                </h1>
+                <p className="text-2xl md:text-3xl text-white drop-shadow-xl font-light tracking-widest"
+                  style={{ 
+                    textShadow: "0 2px 4px rgba(0,0,0,0.5)"
+                  }}>
+                  Track.Review.Share
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <style jsx global>{`
+        @keyframes fade-in-up {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 1s ease-out forwards;
+        }
+      `}</style>
 
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-3 gap-12">

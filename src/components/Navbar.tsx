@@ -73,16 +73,16 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 transition-transform group-hover:scale-105">
+            <div className="relative w-10 h-10 transition-transform group-hover:scale-100">
               <svg width="40" height="40" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="60" height="60" rx="12" stroke="currentColor" strokeWidth="4" className="text-foreground"/>
-                <rect x="14" y="18" width="10" height="28" rx="2" fill="#FF6B35"/>
-                <rect x="27" y="18" width="10" height="28" rx="2" fill="#2ECC71"/>
-                <rect x="40" y="18" width="10" height="28" rx="2" fill="#3498DB"/>
+                <rect x="2" y="8" width="60" height="45" rx="12" stroke="currentColor" strokeWidth="4" className="text-foreground"/>
+                <rect x="14" y="16" width="10" height="28" rx="2" fill="#FF6B35"/>
+                <rect x="27" y="16" width="10" height="28" rx="2" fill="#2ECC71"/>
+                <rect x="40" y="16" width="10" height="28" rx="2" fill="#3498DB"/>
               </svg>
             </div>
-            <span className="text-xl font-normal tracking-tight text-foreground group-hover:text-foreground/80 transition-colors">
-              scoreboxd
+            <span className="text-xl font-semibold tracking-tight text-foreground group-hover:text-foreground/80 transition-colors">
+              Scoreboxd
             </span>
           </Link>
 
