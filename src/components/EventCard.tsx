@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Calendar, MapPin, Trophy, Star, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper"; // Import ScrollAnimationWrapper
 
 interface EventCardProps {
   event: {
@@ -20,6 +21,7 @@ interface EventCardProps {
     imageUrl?: string | null;
     description?: string | null;
   };
+  delay?: number; // Add delay prop for staggered animations
 }
 
 const sportImages: Record<string, string> = {
@@ -33,87 +35,92 @@ const sportImages: Record<string, string> = {
   F1: "https://v3b.fal.media/files/b/elephant/vcge_23vdWBJhjMXZBMDy_output.png",
 };
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventCard({ event, delay = 0 }: EventCardProps) {
   const eventDate = new Date(event.date);
   const isUpcoming = eventDate > new Date();
   const imageUrl = event.imageUrl || sportImages[event.sport] || sportImages.Basketball;
 
   return (
-    <Link href={`/events/${event.id}`} className="group">
-      <Card className="overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full border-2 hover:border-primary/20 bg-gradient-to-br from-card to-card/80">
-        <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-primary/5 to-accent/5">
-          <Image
-            src={imageUrl}
-            alt={event.title}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/20 group-hover:from-black/70 transition-all duration-300" />
-          
-          {/* Badges */}
-          <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
-            <Badge 
-              variant={isUpcoming ? "default" : "secondary"}
-              className="shadow-lg backdrop-blur-sm font-semibold"
-            >
-              {isUpcoming ? (
-                <><Flame className="w-3 h-3 mr-1" /> Upcoming</>
-              ) : (
-                <><Star className="w-3 h-3 mr-1" /> Completed</>
-              )}
-            </Badge>
-            <Badge variant="outline" className="bg-black/40 text-white border-white/30 backdrop-blur-sm font-semibold">
-              {event.sport}
-            </Badge>
-          </div>
-
-          {/* Score overlay */}
-          {event.score && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent p-4 pt-12">
-              <p className="text-white font-bold text-xl font-display tracking-wider">{event.score}</p>
+    <ScrollAnimationWrapper
+      preset="smoothScaleFade"
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      delay={delay}
+    >
+      <Link href={`/events/${event.id}`} className="group">
+        <Card className="overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 h-full border hover:border-primary/30 bg-black">
+          <div className="relative aspect-[4/3] overflow-hidden bg-black">
+            <Image
+              src={imageUrl}
+              alt={event.title}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0  transition-all duration-300" />
+            
+            {/* Badges */}
+            <div className="absolute top-2 left-2 right-2 flex items-start justify-between gap-1.5">
+              <Badge 
+                variant={isUpcoming ? "default" : "secondary"}
+                className="shadow text-xs py-1 px-2 font-semibold"
+              >
+                {isUpcoming ? (
+                  <><Flame className="w-2.5 h-2.5 mr-1" /> Upcoming</>
+                ) : (
+                  <><Star className="w-2.5 h-2.5 mr-1" /> Completed</>
+                )}
+              </Badge>
+              <Badge variant="outline" className="bg-black/30 text-white border-white/20 text-xs py-1 px-2 font-semibold">
+                {event.sport}
+              </Badge>
             </div>
-          )}
-        </div>
-        
-        <CardContent className="p-5 space-y-3">
-          <h3 className="font-bold text-lg line-clamp-2 group-hover:text-primary transition-colors leading-tight">
-            {event.title}
-          </h3>
-          
-          {event.league && (
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-              {event.league}
-            </p>
-          )}
 
-          <div className="space-y-2 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium">
-                {eventDate.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </span>
-            </div>
-            {event.location && (
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-primary" />
-                <span className="text-xs line-clamp-1 font-medium">{event.location}</span>
+            {/* Score overlay */}
+            {event.score && (
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 pt-8">
+                <p className="text-white font-bold text-lg font-display tracking-wider">{event.score}</p>
               </div>
             )}
           </div>
-
-          {(event.homeTeam && event.awayTeam) && (
-            <div className="pt-3 border-t border-border/50">
-              <p className="text-sm font-semibold text-foreground/80">
-                {event.homeTeam} <span className="text-muted-foreground mx-1">vs</span> {event.awayTeam}
+          
+          <CardContent className="p-3 space-y-2">
+            <h3 className="font-bold text-sm line-clamp-2 group-hover:text-primary transition-colors leading-tight">
+              {event.title}
+            </h3>
+            
+            {event.league && (
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                {event.league}
               </p>
+            )}
+
+            <div className="space-y-1.5 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-primary" />
+                <span className="font-medium">
+                  {eventDate.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+              {event.location && (
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-primary" />
+                  <span className="line-clamp-1 font-medium">{event.location}</span>
+                </div>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </Link>
+
+            {(event.homeTeam && event.awayTeam) && (
+              <div className="pt-2 border-t border-border/30">
+                <p className="text-xs font-semibold text-foreground/80">
+                  {event.homeTeam} <span className="text-muted-foreground mx-0.5">vs</span> {event.awayTeam}
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </Link>
+    </ScrollAnimationWrapper>
   );
 }
